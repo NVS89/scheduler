@@ -1,0 +1,125 @@
+<div class="cal-week-view" role="grid">
+    <div #headers class="day-view-column-headers">
+        <div #column class="day-view-column-header" *ngFor="let user of view?.users">
+            {{ user.name }}
+            <div class="divider">
+
+            </div>
+        </div>
+    </div>
+    <div class="cal-time-events" mwlDroppable (dragEnter)="dragEnter('time')" (dragLeave)="dragLeave('time')">
+        <div class="cal-time-label-column" *ngIf="view.hourColumns.length > 0">
+            <div
+                *ngFor="let hour of view.hourColumns[0].hours; trackBy: trackByHour; let odd = odd"
+                class="cal-hour"
+                [class.cal-hour-odd]="odd"
+            >
+                <mwl-calendar-week-view-hour-segment
+                    *ngFor="let segment of hour.segments; trackBy: trackByHourSegment"
+                    [style.height.px]="hourSegmentHeight"
+                    [segment]="segment"
+                    [segmentHeight]="hourSegmentHeight"
+                    [locale]="locale"
+                    [customTemplate]="hourSegmentTemplate"
+                    [isTimeLabel]="true"
+                >
+                </mwl-calendar-week-view-hour-segment>
+            </div>
+        </div>
+        <div class="cal-day-columns" [class.cal-resize-active]="timeEventResizes.size > 0" #dayColumns>
+            <div class="cal-day-columns" [class.cal-resize-active]="timeEventResizes.size > 0" #dayColumns>
+                <div class="cal-day-column" *ngFor="let column of view.hourColumns; trackBy: trackByHourColumn">
+                    <div
+                        *ngFor="let timeEvent of column.events; trackBy: trackByWeekTimeEvent"
+                        #event
+                        class="cal-event-container"
+                        [ngClass]="timeEvent.event.cssClass"
+                        [hidden]="timeEvent.height === 0 && timeEvent.width === 0"
+                        [style.top.px]="timeEvent.top"
+                        [style.height.px]="timeEvent.height"
+                        [style.left.px]="timeEvent.left"
+                        [resize]="{'headers': headers, 'offsetLeft': timeEvent.left}"
+                    >
+                        <div
+                            class="cal-resize-handle cal-resize-handle-before-start"
+                            *ngIf="timeEvent.event?.resizable?.beforeStart && !timeEvent.startsBeforeDay"
+                            mwlResizeHandle
+                            [resizeEdges]="{
+                                left: true,
+                                top: true
+                            }"
+                        ></div>
+                        <mwl-calendar-week-view-event
+                            [locale]="locale"
+                            [weekEvent]="timeEvent"
+                            [tooltipPlacement]="tooltipPlacement"
+                            [tooltipTemplate]="tooltipTemplate"
+                            [tooltipAppendToBody]="tooltipAppendToBody"
+                            [tooltipDisabled]="dragActive || timeEventResizes.size > 0"
+                            [tooltipDelay]="tooltipDelay"
+                            [customTemplate]="eventTemplate"
+                            [eventTitleTemplate]="eventTitleTemplate"
+                            [eventActionsTemplate]="eventActionsTemplate"
+                            [column]="column"
+                            (eventClicked)="
+                                eventClicked.emit({
+                                    event: timeEvent.event,
+                                    sourceEvent: $event.sourceEvent
+                                })
+                            "
+                        >
+                        </mwl-calendar-week-view-event>
+                        <div
+                            class="cal-resize-handle cal-resize-handle-after-end"
+                            *ngIf="timeEvent.event?.resizable?.afterEnd && !timeEvent.endsAfterDay"
+                            mwlResizeHandle
+                            [resizeEdges]="{
+                                right: true,
+                                bottom: true
+                            }"
+                        ></div>
+                    </div>
+
+                    <div *ngFor="let hour of column.hours; trackBy: trackByHour; let odd = odd" class="cal-hour" [class.cal-hour-odd]="odd">
+                        <mwl-calendar-week-view-hour-segment
+                            *ngFor="let segment of hour.segments; trackBy: trackByHourSegment"
+                            [style.height.px]="hourSegmentHeight"
+                            [segment]="segment"
+                            [segmentHeight]="hourSegmentHeight"
+                            [locale]="locale"
+                            [customTemplate]="hourSegmentTemplate"
+                        >
+                        </mwl-calendar-week-view-hour-segment>
+                        <mwl-calendar-week-view-current-time-marker
+                            [columnDate]="column.date"
+                            [dayStartHour]="view.dayStart.hour"
+                            [dayStartMinute]="view.dayStart.minute"
+                            [dayEndHour]="view.dayEnd.hour"
+                            [dayEndMinute]="view.dayEnd.minute"
+                            [hourSegmentHeight]="hourSegmentHeight"
+                            [hourSegments]="hourSegments"
+                        ></mwl-calendar-week-view-current-time-marker>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #hourTemplate>
+        <div class="day-view-column-cells">
+            <div class="day-view-column-cell" *ngFor="let user of view?.users"></div>
+        </div>
+    </ng-template>
+
+    <ng-template
+        #currentTimeMarkerTemplate
+        let-columnDate="columnDate"
+        let-dayStartHour="dayStartHour"
+        let-dayStartMinute="dayStartMinute"
+        let-dayEndHour="dayEndHour"
+        let-dayEndMinute="dayEndMinute"
+        let-isVisible="isVisible"
+        let-topPx="topPx"
+    >
+    </ng-template>
+</div>

@@ -1,0 +1,39 @@
+.day-view-column-headers {
+    display: flex;
+    margin-left: 70px;
+    justify-content: space-evenly;
+}
+.day-view-column-cells {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.day-view-column-header {
+    width: 100%;
+    // border-right: solid 1px black;
+    text-align: center;
+    height: 30px;
+}
+.day-view-column-cell {
+    width: 100%;
+    border-right: solid 1px black;
+    text-align: center;
+    height: 30px;
+}
+
+.cal-time-events {
+    border-top: solid 1px #e1e1e1;
+}
+.cal-week-view {
+    border-top: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.divider{
+    border-right: solid 1px black;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    z-index: 1;
+}
