@@ -1,43 +1,17 @@
 <div class="row">
-    <!-- <div class="col-md-6">
-      <div class="btn-group">
-        <div
-          class="btn btn-primary"
-          mwlCalendarPreviousView
-          [view]="'day'"
-          [(viewDate)]="viewDate"
-        >
-          Previous
-        </div>
-        <div
-          class="btn btn-outline-secondary"
-          mwlCalendarToday
-          [(viewDate)]="viewDate"
-        >
-          Today
-        </div>
-        <div
-          class="btn btn-primary"
-          mwlCalendarNextView
-          [view]="'day'"
-          [(viewDate)]="viewDate"
-        >
-          Next
-        </div>
-      </div>
-    </div> -->
     <div class="col-md-6 text-right">
-      <h3>{{ viewDate | calendarDate:('dayViewTitle') }}</h3>
+        <h3>{{ viewDate | calendarDate: 'dayViewTitle' }}</h3>
     </div>
-  </div>
-  <br />
+</div>
+<br />
 
-  <app-calendar
+<app-calendar
     [events]="events"
     [viewDate]="viewDate"
-    [dayStartHour]="9"
-    [dayStartMinute]="00"
-    [dayEndHour]="18"
-    [dayEndMinute]="00"
-  >
-  </app-calendar>
+    [dayStartHour]="workingHours.dayStartHour"
+    [dayStartMinute]="workingHours.dayStartMinute"
+    [dayEndHour]="workingHours.dayEndHour"
+    [dayEndMinute]="workingHours.dayEndMinute"
+    [hourSegments]="hourSegments"
+>
+</app-calendar>

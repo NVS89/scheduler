@@ -1,5 +1,4 @@
 import { CustomDateFormatterService } from './custom-date-formatter.service';
-import { DayViewScheduler } from './day-view-scheduler';
 import { DayViewSchedulerCalendarUtils } from './calendar.service';
 import { CalendarUtils, CalendarWeekViewComponent, CalendarDateFormatter } from 'angular-calendar';
 import { Component, EventEmitter, Output, ViewChild, ElementRef, ViewChildren, QueryList, OnInit, Input } from '@angular/core';
@@ -21,20 +20,63 @@ import { Component, EventEmitter, Output, ViewChild, ElementRef, ViewChildren, Q
 })
 export class CalendarComponent extends CalendarWeekViewComponent implements OnInit {
     @ViewChild('column', { static: false }) column: ElementRef;
+    @ViewChild('hourRow', { static: false }) hourRow: ElementRef;
     @ViewChildren('event') event: QueryList<ElementRef>;
     @Output() userChanged = new EventEmitter();
     @Input() user;
 
-    view: DayViewScheduler;
+    view: any;
 
     daysInWeek = 1;
 
     locale = 'uk';
 
-    ngOnInit(): void {
-        console.log('===================================================');
-        console.log('this.view', this.view);
-        console.log('===================================================');
+    eventList = [];
 
+    ngOnInit(): void {
+        this.processView();
+    }
+    processView() {
+        for (const column of this.view.hourColumns) {
+            this.processEvent(column.events);
+            this.processTimeSegment(column.hours);
+        }
+    }
+
+    processEvent(events) {
+        for (const { event } of events) {
+            event['timeStart'] = {
+                hour: this.formatTime(event.start.getHours()),
+                minute: this.formatTime(event.start.getMinutes()),
+            };
+            this.eventList.push(event);
+        }
+    }
+
+    processTimeSegment(hours) {
+        for (const hour of hours) {
+            for (const segment of hour.segments) {
+                segment['events'] = [];
+                segment['time'] = {
+                    hour: this.formatTime(segment.displayDate.getHours()),
+                    minute: this.formatTime(segment.displayDate.getMinutes()),
+                };
+                this.mapEvents(segment);
+            }
+        }
+    }
+
+    formatTime(time) {
+        return time < 10 ? '0' + time : time.toString();
+    }
+
+    mapEvents(segment) {
+        for (const event of this.eventList) {
+            if (event.start.getHours() === segment.date.getHours()) {
+                if (event.start.getMinutes() >= segment.date.getMinutes()) {
+                    segment.events.push(event);
+                }
+            }
+        }
     }
 }
