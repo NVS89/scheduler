@@ -1,4 +1,3 @@
-import { ResizeDirective } from './calendar/resize.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -23,9 +22,8 @@ registerLocaleData(localeFr, 'uk');
   declarations: [
     AppComponent,
     CalendarComponent,
-    ResizeDirective,
     TimeSegmentComponent,
-    CurrentTimeMarkerComponent
+    CurrentTimeMarkerComponent,
   ],
   imports: [
     BrowserModule,

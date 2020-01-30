@@ -1,3 +1,7 @@
-<div *ngIf="showMarker" class="current-time-marker" >
+<div
+    *ngIf="segment.showMarker"
+    class="current-time-marker"
+    [style.top.px]="position"
+>
     <hr />
 </div>

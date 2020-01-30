@@ -61,8 +61,9 @@ export class CalendarComponent extends CalendarWeekViewComponent implements OnIn
                     hour: this.formatTime(segment.displayDate.getHours()),
                     minute: this.formatTime(segment.displayDate.getMinutes()),
                 };
-                this.mapEvents(segment);
+
             }
+            this.mapEvents(hour.segments);
         }
     }
 
@@ -70,11 +71,16 @@ export class CalendarComponent extends CalendarWeekViewComponent implements OnIn
         return time < 10 ? '0' + time : time.toString();
     }
 
-    mapEvents(segment) {
+    mapEvents(segments) {
         for (const event of this.eventList) {
-            if (event.start.getHours() === segment.date.getHours()) {
-                if (event.start.getMinutes() >= segment.date.getMinutes()) {
-                    segment.events.push(event);
+            for (let i = 0; i < segments.length; i++) {
+                if (
+                    event.start.getHours() === segments[i].date.getHours() &&
+                    event.start.getMinutes() >= segments[i].date.getMinutes()
+                ) {
+                    if (!segments[(i + 1)] || event.start.getMinutes() < segments[(i + 1)].date.getMinutes()) {
+                        segments[i].events.push(event);
+                    }
                 }
             }
         }

@@ -50,8 +50,8 @@ export class AppComponent {
               },
         },
         {
-            title: 'An event',
-            start: this.day.set({ hour: 16, minute: 20, second: 0, millisecond: 0 }).toDate(),
+            title: 'An test',
+            start: this.day.set({ hour: 16, minute: 40, second: 0, millisecond: 0 }).toDate(),
             meta: {
                 user: this.rooms[0]
             },

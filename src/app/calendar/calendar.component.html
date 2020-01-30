@@ -14,44 +14,9 @@
                             [segments]="hour.segments"
                             [users]="view?.users"
                         ></app-time-segment>
-                        <!-- <div *ngFor="let segment of hour.segments; trackBy: trackByHourSegment" class="day-view-column-cells">
-                            <div class="time-placeholder">
-                                {{ segment.time.hour + ':' + segment.time.minute }}
-                            </div>
-                            <div class="day-view-column-cell" *ngFor="let user of view?.users">
-                                <div *ngFor="let event of segment.events">
-                                    <div class="event" *ngIf="event.meta.user.id === user.id">
-                                        {{ event.timeStart.hour + ':' + event.timeStart.minute }}
-                                        {{ event.title }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <mwl-calendar-week-view-current-time-marker
-                            [columnDate]="column.date"
-                            [dayStartHour]="view.dayStart.hour"
-                            [dayStartMinute]="view.dayStart.minute"
-                            [dayEndHour]="view.dayEnd.hour"
-                            [dayEndMinute]="view.dayEnd.minute"
-                            [hourSegmentHeight]="hourSegmentHeight"
-                            [hourSegments]="hourSegments"
-                        ></mwl-calendar-week-view-current-time-marker> -->
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <ng-template
-        #currentTimeMarkerTemplate
-        let-columnDate="columnDate"
-        let-dayStartHour="dayStartHour"
-        let-dayStartMinute="dayStartMinute"
-        let-dayEndHour="dayEndHour"
-        let-dayEndMinute="dayEndMinute"
-        let-isVisible="isVisible"
-        let-topPx="topPx"
-    >
-    </ng-template>
 </div>

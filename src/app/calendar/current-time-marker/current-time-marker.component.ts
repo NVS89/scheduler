@@ -7,26 +7,25 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class CurrentTimeMarkerComponent implements OnInit {
     @Input() segment;
+    @Input() segmentStep: number;
+    position = 0;
+
     constructor() { }
 
-    showMarker: boolean;
-
     ngOnInit() {
+        this.setPositionOfMarker();
+    }
+
+    setPositionOfMarker() {
+        debugger
+        const currentMinute = new Date().getMinutes();
+        const timeDelta =  currentMinute > this.segmentStep ? (currentMinute - this.segmentStep) : currentMinute;
+        this.position = (timeDelta / this.segmentStep) *  this.segment.elemHeigth;
         console.log('===================================================');
         console.log(this.segment);
         console.log('===================================================');
-        const currentTime = new Date();
-        const currentHour = currentTime.getHours();
-        const currentMinute = currentTime.getMinutes();
-        const segnentHour = this.segment.date.getHours();
-        const segnentMinute = this.segment.date.getMinutes();
-
-        if (segnentHour === currentHour && currentMinute >= segnentMinute ) {
-            this.showMarker = true;
-        }
-    }
-
-    formatTime(time) {
-        return time < 10 ? '0' + time : time.toString();
+        console.log('===================================================');
+        console.log(this.position);
+        console.log('===================================================');
     }
 }
