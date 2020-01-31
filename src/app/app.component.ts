@@ -29,7 +29,7 @@ export class AppComponent {
     events: CalendarEvent[] = [
         {
             title: 'An event',
-            start: this.day.set({ hour: 16, minute: 0, second: 0, millisecond: 0 }).toDate(),
+            start: this.day.set({ hour: 10, minute: 10, second: 0, millisecond: 0 }).toDate(),
             meta: {
                 user: this.rooms[0]
             },
@@ -40,7 +40,7 @@ export class AppComponent {
         },
         {
             title: 'An event',
-            start: this.day.set({ hour: 16, minute: 10, second: 0, millisecond: 0 }).toDate(),
+            start: this.day.set({ hour: 10, minute: 20, second: 0, millisecond: 0 }).toDate(),
             meta: {
                 user: this.rooms[0]
             },
@@ -51,7 +51,7 @@ export class AppComponent {
         },
         {
             title: 'An test',
-            start: this.day.set({ hour: 16, minute: 40, second: 0, millisecond: 0 }).toDate(),
+            start: this.day.set({ hour: 10, minute: 25, second: 0, millisecond: 0 }).toDate(),
             meta: {
                 user: this.rooms[0]
             },

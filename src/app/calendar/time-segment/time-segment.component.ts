@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, HostBinding, ElementRef, ViewChild, AfterViewInit, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, Input, ElementRef, AfterViewInit, ChangeDetectorRef, ViewChildren, QueryList } from '@angular/core';
 
 @Component({
     selector: 'app-time-segment',
@@ -14,7 +14,7 @@ export class TimeSegmentComponent implements OnInit, AfterViewInit {
     segmentStep: number;
     constructor(
         private cdRef: ChangeDetectorRef
-    ) {}
+    ) { }
 
     ngOnInit() {
         this.checkCurrentTime();
@@ -40,12 +40,12 @@ export class TimeSegmentComponent implements OnInit, AfterViewInit {
             const segnentHour = this.segments[i].date.getHours();
             const segmentMinute = this.segments[i].date.getMinutes();
             if (
-                    segnentHour === currentHour &&
-                    currentMinute >= segmentMinute
-                ) {
-                    if (!this.segments[(i + 1)] || currentMinute < this.segments[(i + 1)].date.getMinutes()) {
-                        this.segments[i].showMarker = true;
-                    }
+                segnentHour === currentHour &&
+                currentMinute >= segmentMinute
+            ) {
+                if (!this.segments[(i + 1)] || currentMinute < this.segments[(i + 1)].date.getMinutes()) {
+                    this.segments[i].showMarker = true;
+                }
             }
         }
     }

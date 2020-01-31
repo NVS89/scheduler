@@ -1,13 +1,19 @@
 <div class="segments">
     <div *ngFor="let segment of segments" class="day-view-column-cells" #timeSegment>
         <div class="time-placeholder" >
-            {{ segment.time.hour + ':' + segment.time.minute }}
+            <div class="">
+                {{ segment.time.hour + ':' + segment.time.minute }}
+            </div>
         </div>
         <div class="day-view-column-cell" *ngFor="let user of users">
             <div *ngFor="let event of segment.events">
                 <div class="event" *ngIf="event.meta.user.id === user.id">
-                    {{ event.timeStart.hour + ':' + event.timeStart.minute }}
-                    {{ event.title }}
+                    <div class="event-time">
+                        {{ event.timeStart.hour + ':' + event.timeStart.minute }}
+                    </div>
+                    <div class="event-title">
+                        {{ event.title }}
+                    </div>
                 </div>
             </div>
         </div>
