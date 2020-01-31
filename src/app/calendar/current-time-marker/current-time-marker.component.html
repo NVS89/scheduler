@@ -3,5 +3,8 @@
     class="current-time-marker"
     [style.top.px]="position"
 >
-    <hr />
+    <hr class="current-time-line"/>
+    <div class="current-time-title">
+        {{currentTime.hour +':'+currentTime.minutes}}
+    </div>
 </div>

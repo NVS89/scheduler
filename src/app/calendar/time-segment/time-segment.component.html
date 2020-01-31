@@ -1,7 +1,8 @@
 <div class="segments">
     <div *ngFor="let segment of segments" class="day-view-column-cells" #timeSegment>
         <div class="time-placeholder" >
-            <div class="">
+            <hr class="hour-line">
+            <div class="hour-title">
                 {{ segment.time.hour + ':' + segment.time.minute }}
             </div>
         </div>
