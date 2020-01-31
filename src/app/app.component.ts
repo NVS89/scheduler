@@ -9,7 +9,7 @@ import * as moment from 'moment';
 export class AppComponent {
     viewDate = new Date();
     day = moment(this.viewDate);
-    hourSegments = 2; //hourSegments = ( interval / hour)
+    hourSegments = 3; //hourSegments = ( interval / hour)
     rooms = [{
         id: 0,
         name: 'Room 1'

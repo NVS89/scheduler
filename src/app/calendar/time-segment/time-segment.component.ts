@@ -50,6 +50,7 @@ export class TimeSegmentComponent implements OnInit, AfterViewInit, OnDestroy {
         for (let i = 0; i < this.segments.length; i++) {
             const segnentHour = this.segments[i].date.getHours();
             const segmentMinute = this.segments[i].date.getMinutes();
+            this.segments[i].showMarker = false;
             if (
                 segnentHour === currentHour &&
                 currentMinute >= segmentMinute
