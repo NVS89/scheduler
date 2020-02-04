@@ -1,0 +1,21 @@
+:host{
+    position: absolute;
+    width: 100%;
+    hr{
+        margin: 0;
+        border-color: red;
+    }
+    .current-time {
+        &-marker {
+            position: relative;
+        }
+        &-line {
+            margin-left: 40px;
+        }
+        &-title {
+            color: red;
+            position: relative;
+            bottom: 10px;
+        }
+    }
+}

@@ -1,0 +1,27 @@
+<div class="segments">
+    <div *ngFor="let segment of segments" class="day-view-column-cells" #timeSegment>
+        <div class="time-placeholder" >
+            <hr class="hour-line">
+            <div class="hour-title">
+                {{ segment.time.hour + ':' + segment.time.minute }}
+            </div>
+        </div>
+        <div class="day-view-column-cell" *ngFor="let user of users">
+            <div *ngFor="let event of segment.events">
+                <div class="event" *ngIf="event.meta.user.id === user.id">
+                    <div class="event-time">
+                        {{ event.timeStart.hour + ':' + event.timeStart.minute }}
+                    </div>
+                    <div class="event-title">
+                        {{ event.title }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <app-current-time-marker
+            *ngIf="hourHeigth.length > 0"
+            [segment]="segment"
+            [segmentStep]="segmentStep"
+        ></app-current-time-marker>
+    </div>
+</div>

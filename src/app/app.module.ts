@@ -1,4 +1,3 @@
-import { ResizeDirective } from './calendar/resize.directive';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
@@ -14,6 +13,8 @@ export function momentAdapterFactory() {
 
 import localeFr from '@angular/common/locales/uk';
 import { registerLocaleData } from '@angular/common';
+import { TimeSegmentComponent } from './calendar/time-segment/time-segment.component';
+import { CurrentTimeMarkerComponent } from './calendar/current-time-marker/current-time-marker.component';
 
 registerLocaleData(localeFr, 'uk');
 
@@ -21,7 +22,8 @@ registerLocaleData(localeFr, 'uk');
   declarations: [
     AppComponent,
     CalendarComponent,
-    ResizeDirective
+    TimeSegmentComponent,
+    CurrentTimeMarkerComponent,
   ],
   imports: [
     BrowserModule,
