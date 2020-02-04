@@ -20,6 +20,9 @@
         z-index: 38;
         margin: 0;
         margin-left: 40px;
+        margin-left: 40px;
+        border: none;
+        border-bottom: 1px solid #bfd4e7;
     }
     &-title{
         position: relative;
@@ -30,14 +33,18 @@
     display: flex;
     margin: 8px 10px;
     padding: 3px;
-    tab-size: 12px;
-    box-shadow: 0 0 3px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 6px 0 rgba(35, 31, 32, 0.04);
+    border: solid 1px #e0e0e0;
+    background-color: #ffffff;
     &-time{
         color: #bfc0c2;
         margin-right: 8px;
+        font-size: 13px;
+        font-weight: normal;
     }
     &-title{
-        // font-weight: bold;
+        font-size: 13px;
+        font-weight: bold;
     }
 }
 
