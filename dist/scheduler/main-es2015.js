@@ -318,7 +318,7 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"row\">\r\n    <!-- <div class=\"col-md-6\">\r\n      <div class=\"btn-group\">\r\n        <div\r\n          class=\"btn btn-primary\"\r\n          mwlCalendarPreviousView\r\n          [view]=\"'day'\"\r\n          [(viewDate)]=\"viewDate\"\r\n        >\r\n          Previous\r\n        </div>\r\n        <div\r\n          class=\"btn btn-outline-secondary\"\r\n          mwlCalendarToday\r\n          [(viewDate)]=\"viewDate\"\r\n        >\r\n          Today\r\n        </div>\r\n        <div\r\n          class=\"btn btn-primary\"\r\n          mwlCalendarNextView\r\n          [view]=\"'day'\"\r\n          [(viewDate)]=\"viewDate\"\r\n        >\r\n          Next\r\n        </div>\r\n      </div>\r\n    </div> -->\r\n    <div class=\"col-md-6 text-right\">\r\n      <h3>{{ viewDate | calendarDate:('dayViewTitle') }}</h3>\r\n    </div>\r\n  </div>\r\n  <br />\r\n\r\n  <app-calendar\r\n    [events]=\"events\"\r\n    [viewDate]=\"viewDate\"\r\n    [dayStartHour]=\"9\"\r\n    [dayStartMinute]=\"00\"\r\n    [dayEndHour]=\"18\"\r\n    [dayEndMinute]=\"00\"\r\n  >\r\n  </app-calendar>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"row\">\r\n    <div class=\"col-md-6 text-right\">\r\n        <h3>{{ viewDate | calendarDate: 'dayViewTitle' }}</h3>\r\n    </div>\r\n</div>\r\n<br />\r\n\r\n<app-calendar\r\n    [events]=\"events\"\r\n    [viewDate]=\"viewDate\"\r\n    [dayStartHour]=\"workingHours.dayStartHour\"\r\n    [dayStartMinute]=\"workingHours.dayStartMinute\"\r\n    [dayEndHour]=\"workingHours.dayEndHour\"\r\n    [dayEndMinute]=\"workingHours.dayEndMinute\"\r\n    [hourSegments]=\"hourSegments\"\r\n>\r\n</app-calendar>\r\n");
 
 /***/ }),
 
@@ -331,7 +331,33 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cal-week-view\" role=\"grid\">\r\n    <div #headers class=\"day-view-column-headers\">\r\n        <div #column class=\"day-view-column-header\" *ngFor=\"let user of view?.users\">\r\n            {{ user.name }}\r\n            <div class=\"divider\">\r\n\r\n            </div>\r\n        </div>\r\n    </div>\r\n    <div class=\"cal-time-events\" mwlDroppable (dragEnter)=\"dragEnter('time')\" (dragLeave)=\"dragLeave('time')\">\r\n        <div class=\"cal-time-label-column\" *ngIf=\"view.hourColumns.length > 0\">\r\n            <div\r\n                *ngFor=\"let hour of view.hourColumns[0].hours; trackBy: trackByHour; let odd = odd\"\r\n                class=\"cal-hour\"\r\n                [class.cal-hour-odd]=\"odd\"\r\n            >\r\n                <mwl-calendar-week-view-hour-segment\r\n                    *ngFor=\"let segment of hour.segments; trackBy: trackByHourSegment\"\r\n                    [style.height.px]=\"hourSegmentHeight\"\r\n                    [segment]=\"segment\"\r\n                    [segmentHeight]=\"hourSegmentHeight\"\r\n                    [locale]=\"locale\"\r\n                    [customTemplate]=\"hourSegmentTemplate\"\r\n                    [isTimeLabel]=\"true\"\r\n                >\r\n                </mwl-calendar-week-view-hour-segment>\r\n            </div>\r\n        </div>\r\n        <div class=\"cal-day-columns\" [class.cal-resize-active]=\"timeEventResizes.size > 0\" #dayColumns>\r\n            <div class=\"cal-day-columns\" [class.cal-resize-active]=\"timeEventResizes.size > 0\" #dayColumns>\r\n                <div class=\"cal-day-column\" *ngFor=\"let column of view.hourColumns; trackBy: trackByHourColumn\">\r\n                    <div\r\n                        *ngFor=\"let timeEvent of column.events; trackBy: trackByWeekTimeEvent\"\r\n                        #event\r\n                        class=\"cal-event-container\"\r\n                        [ngClass]=\"timeEvent.event.cssClass\"\r\n                        [hidden]=\"timeEvent.height === 0 && timeEvent.width === 0\"\r\n                        [style.top.px]=\"timeEvent.top\"\r\n                        [style.height.px]=\"timeEvent.height\"\r\n                        [style.left.px]=\"timeEvent.left\"\r\n                        [resize]=\"{'headers': headers, 'offsetLeft': timeEvent.left}\"\r\n                    >\r\n                        <div\r\n                            class=\"cal-resize-handle cal-resize-handle-before-start\"\r\n                            *ngIf=\"timeEvent.event?.resizable?.beforeStart && !timeEvent.startsBeforeDay\"\r\n                            mwlResizeHandle\r\n                            [resizeEdges]=\"{\r\n                                left: true,\r\n                                top: true\r\n                            }\"\r\n                        ></div>\r\n                        <mwl-calendar-week-view-event\r\n                            [locale]=\"locale\"\r\n                            [weekEvent]=\"timeEvent\"\r\n                            [tooltipPlacement]=\"tooltipPlacement\"\r\n                            [tooltipTemplate]=\"tooltipTemplate\"\r\n                            [tooltipAppendToBody]=\"tooltipAppendToBody\"\r\n                            [tooltipDisabled]=\"dragActive || timeEventResizes.size > 0\"\r\n                            [tooltipDelay]=\"tooltipDelay\"\r\n                            [customTemplate]=\"eventTemplate\"\r\n                            [eventTitleTemplate]=\"eventTitleTemplate\"\r\n                            [eventActionsTemplate]=\"eventActionsTemplate\"\r\n                            [column]=\"column\"\r\n                            (eventClicked)=\"\r\n                                eventClicked.emit({\r\n                                    event: timeEvent.event,\r\n                                    sourceEvent: $event.sourceEvent\r\n                                })\r\n                            \"\r\n                        >\r\n                        </mwl-calendar-week-view-event>\r\n                        <div\r\n                            class=\"cal-resize-handle cal-resize-handle-after-end\"\r\n                            *ngIf=\"timeEvent.event?.resizable?.afterEnd && !timeEvent.endsAfterDay\"\r\n                            mwlResizeHandle\r\n                            [resizeEdges]=\"{\r\n                                right: true,\r\n                                bottom: true\r\n                            }\"\r\n                        ></div>\r\n                    </div>\r\n\r\n                    <div *ngFor=\"let hour of column.hours; trackBy: trackByHour; let odd = odd\" class=\"cal-hour\" [class.cal-hour-odd]=\"odd\">\r\n                        <mwl-calendar-week-view-hour-segment\r\n                            *ngFor=\"let segment of hour.segments; trackBy: trackByHourSegment\"\r\n                            [style.height.px]=\"hourSegmentHeight\"\r\n                            [segment]=\"segment\"\r\n                            [segmentHeight]=\"hourSegmentHeight\"\r\n                            [locale]=\"locale\"\r\n                            [customTemplate]=\"hourSegmentTemplate\"\r\n                        >\r\n                        </mwl-calendar-week-view-hour-segment>\r\n                        <mwl-calendar-week-view-current-time-marker\r\n                            [columnDate]=\"column.date\"\r\n                            [dayStartHour]=\"view.dayStart.hour\"\r\n                            [dayStartMinute]=\"view.dayStart.minute\"\r\n                            [dayEndHour]=\"view.dayEnd.hour\"\r\n                            [dayEndMinute]=\"view.dayEnd.minute\"\r\n                            [hourSegmentHeight]=\"hourSegmentHeight\"\r\n                            [hourSegments]=\"hourSegments\"\r\n                        ></mwl-calendar-week-view-current-time-marker>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n\r\n    <ng-template #hourTemplate>\r\n        <div class=\"day-view-column-cells\">\r\n            <div class=\"day-view-column-cell\" *ngFor=\"let user of view?.users\"></div>\r\n        </div>\r\n    </ng-template>\r\n\r\n    <ng-template\r\n        #currentTimeMarkerTemplate\r\n        let-columnDate=\"columnDate\"\r\n        let-dayStartHour=\"dayStartHour\"\r\n        let-dayStartMinute=\"dayStartMinute\"\r\n        let-dayEndHour=\"dayEndHour\"\r\n        let-dayEndMinute=\"dayEndMinute\"\r\n        let-isVisible=\"isVisible\"\r\n        let-topPx=\"topPx\"\r\n    >\r\n    </ng-template>\r\n</div>\r\n");
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"cal-week-view\" role=\"grid\">\r\n    <div #headers class=\"day-view-column-headers\">\r\n        <div #column class=\"day-view-column-header\" *ngFor=\"let user of view?.users\">\r\n            {{ user.name }}\r\n            <div class=\"divider\"></div>\r\n        </div>\r\n    </div>\r\n    <div class=\"cal-time-events\" mwlDroppable (dragEnter)=\"dragEnter('time')\" (dragLeave)=\"dragLeave('time')\">\r\n        <div class=\"cal-day-columns\" [class.cal-resize-active]=\"timeEventResizes.size > 0\" #dayColumns>\r\n            <div class=\"cal-day-columns\" [class.cal-resize-active]=\"timeEventResizes.size > 0\" #dayColumns>\r\n                <div class=\"cal-day-column\" *ngFor=\"let column of view.hourColumns; trackBy: trackByHourColumn\">\r\n                    <div *ngFor=\"let hour of column.hours; trackBy: trackByHour; let odd = odd\" class=\"cal-hour\" [class.cal-hour-odd]=\"odd\">\r\n                        <app-time-segment\r\n                            [segments]=\"hour.segments\"\r\n                            [users]=\"view?.users\"\r\n                        ></app-time-segment>\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n    </div>\r\n</div>\r\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/calendar/current-time-marker/current-time-marker.component.html":
+/*!***********************************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/calendar/current-time-marker/current-time-marker.component.html ***!
+  \***********************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div\r\n    *ngIf=\"segment.showMarker\"\r\n    class=\"current-time-marker\"\r\n    [style.top.px]=\"position\"\r\n>\r\n    <hr class=\"current-time-line\"/>\r\n    <div class=\"current-time-title\">\r\n        {{currentTime.hour +':'+currentTime.minutes}}\r\n    </div>\r\n</div>\r\n");
+
+/***/ }),
+
+/***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/calendar/time-segment/time-segment.component.html":
+/*!*********************************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/calendar/time-segment/time-segment.component.html ***!
+  \*********************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<div class=\"segments\">\r\n    <div *ngFor=\"let segment of segments\" class=\"day-view-column-cells\" #timeSegment>\r\n        <div class=\"time-placeholder\" >\r\n            <hr class=\"hour-line\">\r\n            <div class=\"hour-title\">\r\n                {{ segment.time.hour + ':' + segment.time.minute }}\r\n            </div>\r\n        </div>\r\n        <div class=\"day-view-column-cell\" *ngFor=\"let user of users\">\r\n            <div *ngFor=\"let event of segment.events\">\r\n                <div class=\"event\" *ngIf=\"event.meta.user.id === user.id\">\r\n                    <div class=\"event-time\">\r\n                        {{ event.timeStart.hour + ':' + event.timeStart.minute }}\r\n                    </div>\r\n                    <div class=\"event-title\">\r\n                        {{ event.title }}\r\n                    </div>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <app-current-time-marker\r\n            *ngIf=\"hourHeigth.length > 0\"\r\n            [segment]=\"segment\"\r\n            [segmentStep]=\"segmentStep\"\r\n        ></app-current-time-marker>\r\n    </div>\r\n</div>\r\n");
 
 /***/ }),
 
@@ -597,7 +623,8 @@ __webpack_require__.r(__webpack_exports__);
 let AppComponent = class AppComponent {
     constructor() {
         this.viewDate = new Date();
-        this.day = moment__WEBPACK_IMPORTED_MODULE_2__(this.viewDate); //.utcOffset(0);
+        this.day = moment__WEBPACK_IMPORTED_MODULE_2__(this.viewDate);
+        this.hourSegments = 3; //hourSegments = ( interval / hour)
         this.rooms = [{
                 id: 0,
                 name: 'Room 1'
@@ -617,17 +644,47 @@ let AppComponent = class AppComponent {
         this.events = [
             {
                 title: 'An event',
-                start: this.day.set({ hour: 10, minute: 0, second: 0, millisecond: 0 }).toDate(),
+                start: this.day.set({ hour: 10, minute: 10, second: 0, millisecond: 0 }).toDate(),
                 meta: {
                     user: this.rooms[0]
-                }
+                },
+                resizable: {
+                    beforeStart: true,
+                    afterEnd: true
+                },
+            },
+            {
+                title: 'An event',
+                start: this.day.set({ hour: 10, minute: 20, second: 0, millisecond: 0 }).toDate(),
+                meta: {
+                    user: this.rooms[0]
+                },
+                resizable: {
+                    beforeStart: true,
+                    afterEnd: true
+                },
+            },
+            {
+                title: 'An test',
+                start: this.day.set({ hour: 10, minute: 25, second: 0, millisecond: 0 }).toDate(),
+                meta: {
+                    user: this.rooms[0]
+                },
+                resizable: {
+                    beforeStart: true,
+                    afterEnd: true
+                },
             },
             {
                 title: 'Another event',
                 start: this.day.set({ hour: 15, minute: 0, second: 0, millisecond: 0 }).toDate(),
                 meta: {
                     user: this.rooms[1]
-                }
+                },
+                resizable: {
+                    beforeStart: true,
+                    afterEnd: true
+                },
             },
             {
                 title: 'An 3rd event',
@@ -635,8 +692,18 @@ let AppComponent = class AppComponent {
                 meta: {
                     user: this.rooms[3]
                 },
+                resizable: {
+                    beforeStart: true,
+                    afterEnd: true
+                },
             }
         ];
+        this.workingHours = {
+            dayStartHour: 9,
+            dayStartMinute: 0,
+            dayEndHour: 18,
+            dayEndMinute: 0,
+        };
     }
 };
 AppComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
@@ -663,20 +730,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "momentAdapterFactory", function() { return momentAdapterFactory; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "AppModule", function() { return AppModule; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
-/* harmony import */ var _calendar_resize_directive__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./calendar/resize.directive */ "./src/app/calendar/resize.directive.ts");
-/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
-/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
-/* harmony import */ var angular_calendar__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-calendar */ "./node_modules/angular-calendar/fesm2015/angular-calendar.js");
-/* harmony import */ var angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! angular-calendar/date-adapters/moment */ "./node_modules/angular-calendar/date-adapters/moment/index.js");
-/* harmony import */ var angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
-/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_7__);
-/* harmony import */ var _calendar_calendar_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./calendar/calendar.component */ "./src/app/calendar/calendar.component.ts");
-/* harmony import */ var _angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common/locales/uk */ "./node_modules/@angular/common/locales/uk.js");
-/* harmony import */ var _angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_9___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_9__);
-/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
-
+/* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/platform-browser */ "./node_modules/@angular/platform-browser/fesm2015/platform-browser.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var _app_component__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./app.component */ "./src/app/app.component.ts");
+/* harmony import */ var angular_calendar__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! angular-calendar */ "./node_modules/angular-calendar/fesm2015/angular-calendar.js");
+/* harmony import */ var angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! angular-calendar/date-adapters/moment */ "./node_modules/angular-calendar/date-adapters/moment/index.js");
+/* harmony import */ var angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
+/* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _calendar_calendar_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./calendar/calendar.component */ "./src/app/calendar/calendar.component.ts");
+/* harmony import */ var _angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/common/locales/uk */ "./node_modules/@angular/common/locales/uk.js");
+/* harmony import */ var _angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(_angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_8__);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm2015/common.js");
+/* harmony import */ var _calendar_time_segment_time_segment_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./calendar/time-segment/time-segment.component */ "./src/app/calendar/time-segment/time-segment.component.ts");
+/* harmony import */ var _calendar_current_time_marker_current_time_marker_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./calendar/current-time-marker/current-time-marker.component */ "./src/app/calendar/current-time-marker/current-time-marker.component.ts");
 
 
 
@@ -686,27 +753,30 @@ __webpack_require__.r(__webpack_exports__);
 
 
 function momentAdapterFactory() {
-    return Object(angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_6__["adapterFactory"])(moment__WEBPACK_IMPORTED_MODULE_7__);
+    return Object(angular_calendar_date_adapters_moment__WEBPACK_IMPORTED_MODULE_5__["adapterFactory"])(moment__WEBPACK_IMPORTED_MODULE_6__);
 }
 ;
 
 
-Object(_angular_common__WEBPACK_IMPORTED_MODULE_10__["registerLocaleData"])(_angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_9___default.a, 'uk');
+
+
+Object(_angular_common__WEBPACK_IMPORTED_MODULE_9__["registerLocaleData"])(_angular_common_locales_uk__WEBPACK_IMPORTED_MODULE_8___default.a, 'uk');
 let AppModule = class AppModule {
 };
 AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_3__["NgModule"])({
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_2__["NgModule"])({
         declarations: [
-            _app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"],
-            _calendar_calendar_component__WEBPACK_IMPORTED_MODULE_8__["CalendarComponent"],
-            _calendar_resize_directive__WEBPACK_IMPORTED_MODULE_1__["ResizeDirective"]
+            _app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"],
+            _calendar_calendar_component__WEBPACK_IMPORTED_MODULE_7__["CalendarComponent"],
+            _calendar_time_segment_time_segment_component__WEBPACK_IMPORTED_MODULE_10__["TimeSegmentComponent"],
+            _calendar_current_time_marker_current_time_marker_component__WEBPACK_IMPORTED_MODULE_11__["CurrentTimeMarkerComponent"],
         ],
         imports: [
-            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_2__["BrowserModule"],
-            angular_calendar__WEBPACK_IMPORTED_MODULE_5__["CalendarModule"].forRoot({ provide: angular_calendar__WEBPACK_IMPORTED_MODULE_5__["DateAdapter"], useFactory: momentAdapterFactory })
+            _angular_platform_browser__WEBPACK_IMPORTED_MODULE_1__["BrowserModule"],
+            angular_calendar__WEBPACK_IMPORTED_MODULE_4__["CalendarModule"].forRoot({ provide: angular_calendar__WEBPACK_IMPORTED_MODULE_4__["DateAdapter"], useFactory: momentAdapterFactory })
         ],
         providers: [],
-        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_4__["AppComponent"]]
+        bootstrap: [_app_component__WEBPACK_IMPORTED_MODULE_3__["AppComponent"]]
     })
 ], AppModule);
 
@@ -723,7 +793,7 @@ AppModule = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony default export */ __webpack_exports__["default"] = (".day-view-column-headers {\n  display: -webkit-box;\n  display: flex;\n  margin-left: 70px;\n  -webkit-box-pack: space-evenly;\n          justify-content: space-evenly;\n}\n\n.day-view-column-cells {\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n          justify-content: space-evenly;\n}\n\n.day-view-column-header {\n  width: 100%;\n  text-align: center;\n  height: 30px;\n}\n\n.day-view-column-cell {\n  width: 100%;\n  border-right: solid 1px black;\n  text-align: center;\n  height: 30px;\n}\n\n.cal-time-events {\n  border-top: solid 1px #e1e1e1;\n}\n\n.cal-week-view {\n  border-top: 0;\n  position: relative;\n  overflow: hidden;\n}\n\n.divider {\n  border-right: solid 1px black;\n  width: 1px;\n  height: 100%;\n  position: absolute;\n  z-index: 1;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FsZW5kYXIvRDpcXGNhbGVuZGFyLXRlc3Qvc3JjXFxhcHBcXGNhbGVuZGFyXFxjYWxlbmRhci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY2FsZW5kYXIvY2FsZW5kYXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxpQkFBQTtFQUNBLDhCQUFBO1VBQUEsNkJBQUE7QUNDSjs7QURDQTtFQUNJLG9CQUFBO0VBQUEsYUFBQTtFQUNBLDhCQUFBO1VBQUEsNkJBQUE7QUNFSjs7QURDQTtFQUNJLFdBQUE7RUFFQSxrQkFBQTtFQUNBLFlBQUE7QUNDSjs7QURDQTtFQUNJLFdBQUE7RUFDQSw2QkFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtBQ0VKOztBRENBO0VBQ0ksNkJBQUE7QUNFSjs7QURBQTtFQUNJLGFBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FDR0o7O0FEQUE7RUFDSSw2QkFBQTtFQUNBLFVBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0FDR0oiLCJmaWxlIjoic3JjL2FwcC9jYWxlbmRhci9jYWxlbmRhci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kYXktdmlldy1jb2x1bW4taGVhZGVycyB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDcwcHg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxufVxyXG4uZGF5LXZpZXctY29sdW1uLWNlbGxzIHtcclxuICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxufVxyXG5cclxuLmRheS12aWV3LWNvbHVtbi1oZWFkZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICAvLyBib3JkZXItcmlnaHQ6IHNvbGlkIDFweCBibGFjaztcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGhlaWdodDogMzBweDtcclxufVxyXG4uZGF5LXZpZXctY29sdW1uLWNlbGwge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICBib3JkZXItcmlnaHQ6IHNvbGlkIDFweCBibGFjaztcclxuICAgIHRleHQtYWxpZ246IGNlbnRlcjtcclxuICAgIGhlaWdodDogMzBweDtcclxufVxyXG5cclxuLmNhbC10aW1lLWV2ZW50cyB7XHJcbiAgICBib3JkZXItdG9wOiBzb2xpZCAxcHggI2UxZTFlMTtcclxufVxyXG4uY2FsLXdlZWstdmlldyB7XHJcbiAgICBib3JkZXItdG9wOiAwO1xyXG4gICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgb3ZlcmZsb3c6IGhpZGRlbjtcclxufVxyXG5cclxuLmRpdmlkZXJ7XHJcbiAgICBib3JkZXItcmlnaHQ6IHNvbGlkIDFweCBibGFjaztcclxuICAgIHdpZHRoOiAxcHg7XHJcbiAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB6LWluZGV4OiAxO1xyXG59XHJcbiIsIi5kYXktdmlldy1jb2x1bW4taGVhZGVycyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIG1hcmdpbi1sZWZ0OiA3MHB4O1xuICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcbn1cblxuLmRheS12aWV3LWNvbHVtbi1jZWxscyB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xufVxuXG4uZGF5LXZpZXctY29sdW1uLWhlYWRlciB7XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGhlaWdodDogMzBweDtcbn1cblxuLmRheS12aWV3LWNvbHVtbi1jZWxsIHtcbiAgd2lkdGg6IDEwMCU7XG4gIGJvcmRlci1yaWdodDogc29saWQgMXB4IGJsYWNrO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGhlaWdodDogMzBweDtcbn1cblxuLmNhbC10aW1lLWV2ZW50cyB7XG4gIGJvcmRlci10b3A6IHNvbGlkIDFweCAjZTFlMWUxO1xufVxuXG4uY2FsLXdlZWstdmlldyB7XG4gIGJvcmRlci10b3A6IDA7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgb3ZlcmZsb3c6IGhpZGRlbjtcbn1cblxuLmRpdmlkZXIge1xuICBib3JkZXItcmlnaHQ6IHNvbGlkIDFweCBibGFjaztcbiAgd2lkdGg6IDFweDtcbiAgaGVpZ2h0OiAxMDAlO1xuICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gIHotaW5kZXg6IDE7XG59Il19 */");
+/* harmony default export */ __webpack_exports__["default"] = (".day-view-column-headers {\n  display: -webkit-box;\n  display: flex;\n  margin-left: 70px;\n  -webkit-box-pack: space-evenly;\n          justify-content: space-evenly;\n}\n\n.day-view-column-header {\n  width: 100%;\n  text-align: center;\n  height: 30px;\n}\n\n.day-view-column-cells {\n  position: relative;\n  height: 100%;\n}\n\n.day-view-column-cell {\n  width: 100%;\n  text-align: center;\n  min-height: 30px;\n}\n\n.cal-week-view {\n  border-top: 0;\n  position: relative;\n  overflow: hidden;\n}\n\n.cal-week-view .cal-time-events {\n  border: none;\n}\n\n.divider {\n  border-right: solid 1px black;\n  width: 1px;\n  height: 100%;\n  position: absolute;\n  z-index: 1;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FsZW5kYXIvRDpcXGNhbGVuZGFyLXRlc3Qvc3JjXFxhcHBcXGNhbGVuZGFyXFxjYWxlbmRhci5jb21wb25lbnQuc2NzcyIsInNyYy9hcHAvY2FsZW5kYXIvY2FsZW5kYXIuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxvQkFBQTtFQUFBLGFBQUE7RUFDQSxpQkFBQTtFQUNBLDhCQUFBO1VBQUEsNkJBQUE7QUNDSjs7QURFQTtFQUNJLFdBQUE7RUFDQSxrQkFBQTtFQUNBLFlBQUE7QUNDSjs7QURHSTtFQUNJLGtCQUFBO0VBQ0EsWUFBQTtBQ0FSOztBREVJO0VBQ0ksV0FBQTtFQUVBLGtCQUFBO0VBQ0EsZ0JBQUE7QUNEUjs7QURLQTtFQUNJLGFBQUE7RUFDQSxrQkFBQTtFQUNBLGdCQUFBO0FDRko7O0FER0k7RUFDSSxZQUFBO0FDRFI7O0FES0E7RUFDSSw2QkFBQTtFQUNBLFVBQUE7RUFDQSxZQUFBO0VBQ0Esa0JBQUE7RUFDQSxVQUFBO0FDRkoiLCJmaWxlIjoic3JjL2FwcC9jYWxlbmRhci9jYWxlbmRhci5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIi5kYXktdmlldy1jb2x1bW4taGVhZGVycyB7XHJcbiAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgbWFyZ2luLWxlZnQ6IDcwcHg7XHJcbiAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxufVxyXG5cclxuLmRheS12aWV3LWNvbHVtbi1oZWFkZXIge1xyXG4gICAgd2lkdGg6IDEwMCU7XHJcbiAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICBoZWlnaHQ6IDMwcHg7XHJcbn1cclxuXHJcbi5kYXktdmlldy1jb2x1bW4ge1xyXG4gICAgJi1jZWxscyB7XHJcbiAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgICAgIGhlaWdodDogMTAwJTtcclxuICAgIH1cclxuICAgICYtY2VsbCB7XHJcbiAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgLy8gYm9yZGVyLWJvdHRvbTogc29saWQgMXB4ICNlMWUxZTE7XHJcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgIG1pbi1oZWlnaHQ6IDMwcHg7XHJcbiAgICB9XHJcbn1cclxuXHJcbi5jYWwtd2Vlay12aWV3IHtcclxuICAgIGJvcmRlci10b3A6IDA7XHJcbiAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICBvdmVyZmxvdzogaGlkZGVuO1xyXG4gICAgLmNhbC10aW1lLWV2ZW50c3tcclxuICAgICAgICBib3JkZXI6IG5vbmU7XHJcbiAgICB9XHJcbn1cclxuXHJcbi5kaXZpZGVyIHtcclxuICAgIGJvcmRlci1yaWdodDogc29saWQgMXB4IGJsYWNrO1xyXG4gICAgd2lkdGg6IDFweDtcclxuICAgIGhlaWdodDogMTAwJTtcclxuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcclxuICAgIHotaW5kZXg6IDE7XHJcbn1cclxuIiwiLmRheS12aWV3LWNvbHVtbi1oZWFkZXJzIHtcbiAgZGlzcGxheTogZmxleDtcbiAgbWFyZ2luLWxlZnQ6IDcwcHg7XG4gIGp1c3RpZnktY29udGVudDogc3BhY2UtZXZlbmx5O1xufVxuXG4uZGF5LXZpZXctY29sdW1uLWhlYWRlciB7XG4gIHdpZHRoOiAxMDAlO1xuICB0ZXh0LWFsaWduOiBjZW50ZXI7XG4gIGhlaWdodDogMzBweDtcbn1cblxuLmRheS12aWV3LWNvbHVtbi1jZWxscyB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgaGVpZ2h0OiAxMDAlO1xufVxuLmRheS12aWV3LWNvbHVtbi1jZWxsIHtcbiAgd2lkdGg6IDEwMCU7XG4gIHRleHQtYWxpZ246IGNlbnRlcjtcbiAgbWluLWhlaWdodDogMzBweDtcbn1cblxuLmNhbC13ZWVrLXZpZXcge1xuICBib3JkZXItdG9wOiAwO1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIG92ZXJmbG93OiBoaWRkZW47XG59XG4uY2FsLXdlZWstdmlldyAuY2FsLXRpbWUtZXZlbnRzIHtcbiAgYm9yZGVyOiBub25lO1xufVxuXG4uZGl2aWRlciB7XG4gIGJvcmRlci1yaWdodDogc29saWQgMXB4IGJsYWNrO1xuICB3aWR0aDogMXB4O1xuICBoZWlnaHQ6IDEwMCU7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgei1pbmRleDogMTtcbn0iXX0= */");
 
 /***/ }),
 
@@ -753,16 +823,60 @@ let CalendarComponent = class CalendarComponent extends angular_calendar__WEBPAC
         this.userChanged = new _angular_core__WEBPACK_IMPORTED_MODULE_4__["EventEmitter"]();
         this.daysInWeek = 1;
         this.locale = 'uk';
+        this.eventList = [];
     }
     ngOnInit() {
-        console.log('===================================================');
-        console.log('this.view', this.view);
-        console.log('===================================================');
+        this.processView();
+    }
+    processView() {
+        for (const column of this.view.hourColumns) {
+            this.processEvent(column.events);
+            this.processTimeSegment(column.hours);
+        }
+    }
+    processEvent(events) {
+        for (const { event } of events) {
+            event['timeStart'] = {
+                hour: this.formatTime(event.start.getHours()),
+                minute: this.formatTime(event.start.getMinutes()),
+            };
+            this.eventList.push(event);
+        }
+    }
+    processTimeSegment(hours) {
+        for (const hour of hours) {
+            for (const segment of hour.segments) {
+                segment['events'] = [];
+                segment['time'] = {
+                    hour: this.formatTime(segment.displayDate.getHours()),
+                    minute: this.formatTime(segment.displayDate.getMinutes()),
+                };
+            }
+            this.mapEvents(hour.segments);
+        }
+    }
+    formatTime(time) {
+        return time < 10 ? '0' + time : time.toString();
+    }
+    mapEvents(segments) {
+        for (const event of this.eventList) {
+            for (let i = 0; i < segments.length; i++) {
+                if (event.start.getHours() === segments[i].date.getHours() &&
+                    event.start.getMinutes() >= segments[i].date.getMinutes()) {
+                    if (!segments[(i + 1)] || event.start.getMinutes() < segments[(i + 1)].date.getMinutes()) {
+                        segments[i].events.push(event);
+                    }
+                }
+            }
+        }
     }
 };
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('column', { static: false })
 ], CalendarComponent.prototype, "column", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChild"])('hourRow', { static: false })
+], CalendarComponent.prototype, "hourRow", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_4__["ViewChildren"])('event')
 ], CalendarComponent.prototype, "event", void 0);
@@ -839,6 +953,86 @@ DayViewSchedulerCalendarUtils = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]
 
 /***/ }),
 
+/***/ "./src/app/calendar/current-time-marker/current-time-marker.component.scss":
+/*!*********************************************************************************!*\
+  !*** ./src/app/calendar/current-time-marker/current-time-marker.component.scss ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (":host {\n  position: absolute;\n  width: 100%;\n}\n:host hr {\n  margin: 0;\n  border-color: red;\n}\n:host .current-time-marker {\n  position: relative;\n}\n:host .current-time-line {\n  margin-left: 40px;\n}\n:host .current-time-title {\n  color: red;\n  position: relative;\n  bottom: 10px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FsZW5kYXIvY3VycmVudC10aW1lLW1hcmtlci9EOlxcY2FsZW5kYXItdGVzdC9zcmNcXGFwcFxcY2FsZW5kYXJcXGN1cnJlbnQtdGltZS1tYXJrZXJcXGN1cnJlbnQtdGltZS1tYXJrZXIuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NhbGVuZGFyL2N1cnJlbnQtdGltZS1tYXJrZXIvY3VycmVudC10aW1lLW1hcmtlci5jb21wb25lbnQuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGtCQUFBO0VBQ0EsV0FBQTtBQ0NKO0FEQUk7RUFDSSxTQUFBO0VBQ0EsaUJBQUE7QUNFUjtBRENRO0VBQ0ksa0JBQUE7QUNDWjtBRENRO0VBQ0ksaUJBQUE7QUNDWjtBRENRO0VBQ0ksVUFBQTtFQUNBLGtCQUFBO0VBQ0EsWUFBQTtBQ0NaIiwiZmlsZSI6InNyYy9hcHAvY2FsZW5kYXIvY3VycmVudC10aW1lLW1hcmtlci9jdXJyZW50LXRpbWUtbWFya2VyLmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3R7XHJcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICB3aWR0aDogMTAwJTtcclxuICAgIGhye1xyXG4gICAgICAgIG1hcmdpbjogMDtcclxuICAgICAgICBib3JkZXItY29sb3I6IHJlZDtcclxuICAgIH1cclxuICAgIC5jdXJyZW50LXRpbWUge1xyXG4gICAgICAgICYtbWFya2VyIHtcclxuICAgICAgICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xyXG4gICAgICAgIH1cclxuICAgICAgICAmLWxpbmUge1xyXG4gICAgICAgICAgICBtYXJnaW4tbGVmdDogNDBweDtcclxuICAgICAgICB9XHJcbiAgICAgICAgJi10aXRsZSB7XHJcbiAgICAgICAgICAgIGNvbG9yOiByZWQ7XHJcbiAgICAgICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgICAgICAgICAgYm90dG9tOiAxMHB4O1xyXG4gICAgICAgIH1cclxuICAgIH1cclxufVxyXG4iLCI6aG9zdCB7XG4gIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgd2lkdGg6IDEwMCU7XG59XG46aG9zdCBociB7XG4gIG1hcmdpbjogMDtcbiAgYm9yZGVyLWNvbG9yOiByZWQ7XG59XG46aG9zdCAuY3VycmVudC10aW1lLW1hcmtlciB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbjpob3N0IC5jdXJyZW50LXRpbWUtbGluZSB7XG4gIG1hcmdpbi1sZWZ0OiA0MHB4O1xufVxuOmhvc3QgLmN1cnJlbnQtdGltZS10aXRsZSB7XG4gIGNvbG9yOiByZWQ7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm90dG9tOiAxMHB4O1xufSJdfQ== */");
+
+/***/ }),
+
+/***/ "./src/app/calendar/current-time-marker/current-time-marker.component.ts":
+/*!*******************************************************************************!*\
+  !*** ./src/app/calendar/current-time-marker/current-time-marker.component.ts ***!
+  \*******************************************************************************/
+/*! exports provided: CurrentTimeMarkerComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrentTimeMarkerComponent", function() { return CurrentTimeMarkerComponent; });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
+
+
+
+let CurrentTimeMarkerComponent = class CurrentTimeMarkerComponent {
+    constructor() {
+        this.position = 0;
+        this.fiveMinutes = 50000;
+    }
+    ngOnInit() {
+        this.currentTime = {
+            hour: this.formatTime(new Date().getHours()),
+            minutes: this.formatTime(new Date().getMinutes())
+        };
+        const redrawTimeMarker = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["interval"])(this.fiveMinutes);
+        this.setPositionOfMarker();
+        this.redrawTimeMarkerSubscription = redrawTimeMarker.subscribe(() => {
+            this.setPositionOfMarker();
+        });
+    }
+    formatTime(time) {
+        return time < 10 ? '0' + time : time.toString();
+    }
+    setPositionOfMarker() {
+        const currentMinute = new Date().getMinutes();
+        const timeDelta = (currentMinute / this.segmentStep);
+        const proportion = currentMinute > this.segmentStep ? timeDelta - Math.trunc(timeDelta) : timeDelta;
+        this.position = proportion * this.segment.elemHeigth;
+        this.currentTime = {
+            hour: this.formatTime(new Date().getHours()),
+            minutes: this.formatTime(new Date().getMinutes())
+        };
+    }
+    ngOnDestroy() {
+        this.redrawTimeMarkerSubscription.unsubscribe();
+    }
+};
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], CurrentTimeMarkerComponent.prototype, "segment", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], CurrentTimeMarkerComponent.prototype, "segmentStep", void 0);
+CurrentTimeMarkerComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-current-time-marker',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./current-time-marker.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/calendar/current-time-marker/current-time-marker.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./current-time-marker.component.scss */ "./src/app/calendar/current-time-marker/current-time-marker.component.scss")).default]
+    })
+], CurrentTimeMarkerComponent);
+
+
+
+/***/ }),
+
 /***/ "./src/app/calendar/custom-date-formatter.service.ts":
 /*!***********************************************************!*\
   !*** ./src/app/calendar/custom-date-formatter.service.ts ***!
@@ -876,57 +1070,104 @@ CustomDateFormatterService = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
 
 /***/ }),
 
-/***/ "./src/app/calendar/resize.directive.ts":
-/*!**********************************************!*\
-  !*** ./src/app/calendar/resize.directive.ts ***!
-  \**********************************************/
-/*! exports provided: ResizeDirective */
+/***/ "./src/app/calendar/time-segment/time-segment.component.scss":
+/*!*******************************************************************!*\
+  !*** ./src/app/calendar/time-segment/time-segment.component.scss ***!
+  \*******************************************************************/
+/*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ResizeDirective", function() { return ResizeDirective; });
+/* harmony default export */ __webpack_exports__["default"] = (".day-view-column-cells {\n  position: relative;\n  height: 100%;\n  display: -webkit-box;\n  display: flex;\n  -webkit-box-pack: space-evenly;\n          justify-content: space-evenly;\n  background: #fff;\n}\n.day-view-column-cell {\n  width: 100%;\n  text-align: center;\n  min-height: 30px;\n}\n.hour-line {\n  position: absolute;\n  width: 100%;\n  z-index: 38;\n  margin: 0;\n  margin-left: 40px;\n}\n.hour-title {\n  position: relative;\n  bottom: 8px;\n}\n.event {\n  display: -webkit-box;\n  display: flex;\n  margin: 8px 10px;\n  padding: 3px;\n  -moz-tab-size: 12px;\n    -o-tab-size: 12px;\n       tab-size: 12px;\n  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);\n}\n.event-time {\n  color: #bfc0c2;\n  margin-right: 8px;\n}\n.time-placeholder {\n  width: 70px;\n  min-width: 70px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvY2FsZW5kYXIvdGltZS1zZWdtZW50L0Q6XFxjYWxlbmRhci10ZXN0L3NyY1xcYXBwXFxjYWxlbmRhclxcdGltZS1zZWdtZW50XFx0aW1lLXNlZ21lbnQuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NhbGVuZGFyL3RpbWUtc2VnbWVudC90aW1lLXNlZ21lbnQuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0k7RUFDSSxrQkFBQTtFQUNBLFlBQUE7RUFDQSxvQkFBQTtFQUFBLGFBQUE7RUFDQSw4QkFBQTtVQUFBLDZCQUFBO0VBQ0EsZ0JBQUE7QUNBUjtBREVJO0VBQ0ksV0FBQTtFQUVBLGtCQUFBO0VBQ0EsZ0JBQUE7QUNEUjtBREtJO0VBQ0ksa0JBQUE7RUFDQSxXQUFBO0VBQ0EsV0FBQTtFQUNBLFNBQUE7RUFDQSxpQkFBQTtBQ0ZSO0FESUk7RUFDSSxrQkFBQTtFQUNBLFdBQUE7QUNGUjtBREtBO0VBQ0ksb0JBQUE7RUFBQSxhQUFBO0VBQ0EsZ0JBQUE7RUFDQSxZQUFBO0VBQ0EsbUJBQUE7SUFBQSxpQkFBQTtPQUFBLGNBQUE7RUFDQSxzQ0FBQTtBQ0ZKO0FER0k7RUFDSSxjQUFBO0VBQ0EsaUJBQUE7QUNEUjtBRFFBO0VBQ0ksV0FBQTtFQUNBLGVBQUE7QUNOSiIsImZpbGUiOiJzcmMvYXBwL2NhbGVuZGFyL3RpbWUtc2VnbWVudC90aW1lLXNlZ21lbnQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuZGF5LXZpZXctY29sdW1uIHtcclxuICAgICYtY2VsbHMge1xyXG4gICAgICAgIHBvc2l0aW9uOiByZWxhdGl2ZTtcclxuICAgICAgICBoZWlnaHQ6IDEwMCU7XHJcbiAgICAgICAgZGlzcGxheTogZmxleDtcclxuICAgICAgICBqdXN0aWZ5LWNvbnRlbnQ6IHNwYWNlLWV2ZW5seTtcclxuICAgICAgICBiYWNrZ3JvdW5kOiAjZmZmO1xyXG4gICAgfVxyXG4gICAgJi1jZWxsIHtcclxuICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICAvLyBib3JkZXItYm90dG9tOiBzb2xpZCAxcHggI2UxZTFlMTtcclxuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgbWluLWhlaWdodDogMzBweDtcclxuICAgIH1cclxufVxyXG4uaG91cntcclxuICAgICYtbGluZXtcclxuICAgICAgICBwb3NpdGlvbjogYWJzb2x1dGU7XHJcbiAgICAgICAgd2lkdGg6IDEwMCU7XHJcbiAgICAgICAgei1pbmRleDogMzg7XHJcbiAgICAgICAgbWFyZ2luOiAwO1xyXG4gICAgICAgIG1hcmdpbi1sZWZ0OiA0MHB4O1xyXG4gICAgfVxyXG4gICAgJi10aXRsZXtcclxuICAgICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICAgICAgYm90dG9tOiA4cHg7XHJcbiAgICB9XHJcbn1cclxuLmV2ZW50e1xyXG4gICAgZGlzcGxheTogZmxleDtcclxuICAgIG1hcmdpbjogOHB4IDEwcHg7XHJcbiAgICBwYWRkaW5nOiAzcHg7XHJcbiAgICB0YWItc2l6ZTogMTJweDtcclxuICAgIGJveC1zaGFkb3c6IDAgMCAzcHggcmdiYSgwLDAsMCwwLjIpO1xyXG4gICAgJi10aW1le1xyXG4gICAgICAgIGNvbG9yOiAjYmZjMGMyO1xyXG4gICAgICAgIG1hcmdpbi1yaWdodDogOHB4O1xyXG4gICAgfVxyXG4gICAgJi10aXRsZXtcclxuICAgICAgICAvLyBmb250LXdlaWdodDogYm9sZDtcclxuICAgIH1cclxufVxyXG5cclxuLnRpbWUtcGxhY2Vob2xkZXIge1xyXG4gICAgd2lkdGg6IDcwcHg7XHJcbiAgICBtaW4td2lkdGg6IDcwcHg7XHJcbn1cclxuXHJcbiIsIi5kYXktdmlldy1jb2x1bW4tY2VsbHMge1xuICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gIGhlaWdodDogMTAwJTtcbiAgZGlzcGxheTogZmxleDtcbiAganVzdGlmeS1jb250ZW50OiBzcGFjZS1ldmVubHk7XG4gIGJhY2tncm91bmQ6ICNmZmY7XG59XG4uZGF5LXZpZXctY29sdW1uLWNlbGwge1xuICB3aWR0aDogMTAwJTtcbiAgdGV4dC1hbGlnbjogY2VudGVyO1xuICBtaW4taGVpZ2h0OiAzMHB4O1xufVxuXG4uaG91ci1saW5lIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICB3aWR0aDogMTAwJTtcbiAgei1pbmRleDogMzg7XG4gIG1hcmdpbjogMDtcbiAgbWFyZ2luLWxlZnQ6IDQwcHg7XG59XG4uaG91ci10aXRsZSB7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbiAgYm90dG9tOiA4cHg7XG59XG5cbi5ldmVudCB7XG4gIGRpc3BsYXk6IGZsZXg7XG4gIG1hcmdpbjogOHB4IDEwcHg7XG4gIHBhZGRpbmc6IDNweDtcbiAgdGFiLXNpemU6IDEycHg7XG4gIGJveC1zaGFkb3c6IDAgMCAzcHggcmdiYSgwLCAwLCAwLCAwLjIpO1xufVxuLmV2ZW50LXRpbWUge1xuICBjb2xvcjogI2JmYzBjMjtcbiAgbWFyZ2luLXJpZ2h0OiA4cHg7XG59XG4udGltZS1wbGFjZWhvbGRlciB7XG4gIHdpZHRoOiA3MHB4O1xuICBtaW4td2lkdGg6IDcwcHg7XG59Il19 */");
+
+/***/ }),
+
+/***/ "./src/app/calendar/time-segment/time-segment.component.ts":
+/*!*****************************************************************!*\
+  !*** ./src/app/calendar/time-segment/time-segment.component.ts ***!
+  \*****************************************************************/
+/*! exports provided: TimeSegmentComponent */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TimeSegmentComponent", function() { return TimeSegmentComponent; });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm2015/core.js");
+/* harmony import */ var rxjs__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! rxjs */ "./node_modules/rxjs/_esm2015/index.js");
 
 
-let ResizeDirective = class ResizeDirective {
-    constructor(el) {
-        this.el = el;
-    }
-    onResize() {
-        this.resizeElement();
+
+let TimeSegmentComponent = class TimeSegmentComponent {
+    constructor(cdRef) {
+        this.cdRef = cdRef;
+        this.hourHeigth = [];
+        this.oneHour = 60;
+        this.fiveMinutes = 50000;
     }
     ngOnInit() {
-        this.resizeElement();
+        this.checkCurrentTime();
+        this.segmentStep = this.oneHour / this.segments.length;
+        const checkCurrentTimeInterval = Object(rxjs__WEBPACK_IMPORTED_MODULE_2__["interval"])(this.fiveMinutes);
+        this.checkCurrentTimeIntervalSubscription = checkCurrentTimeInterval.subscribe(() => {
+            this.checkCurrentTime();
+        });
     }
-    resizeElement() {
-        const colWidth = this.resize.headers.children[0].offsetWidth;
-        const offsetLeft = this.resize.offsetLeft;
-        this.width = colWidth;
-        this.left = offsetLeft * colWidth;
+    ngAfterViewInit() {
+        this.showMarker = true;
+        this.hourHeigth = [];
+        this.timeSegment.forEach((element) => {
+            this.hourHeigth.push(element.nativeElement.offsetHeight);
+        });
+        this.mapHeigth();
+        this.cdRef.detectChanges();
+    }
+    checkCurrentTime() {
+        const currentTime = new Date();
+        const currentHour = currentTime.getHours();
+        const currentMinute = currentTime.getMinutes();
+        for (let i = 0; i < this.segments.length; i++) {
+            const segnentHour = this.segments[i].date.getHours();
+            const segmentMinute = this.segments[i].date.getMinutes();
+            this.segments[i].showMarker = false;
+            if (segnentHour === currentHour &&
+                currentMinute >= segmentMinute) {
+                if (!this.segments[(i + 1)] || currentMinute < this.segments[(i + 1)].date.getMinutes()) {
+                    this.segments[i].showMarker = true;
+                }
+            }
+        }
+    }
+    mapHeigth() {
+        for (let i = 0; i < this.hourHeigth.length; i++) {
+            this.segments[i].elemHeigth = this.hourHeigth[i];
+        }
+        this.segments = [...this.segments];
+    }
+    ngOnDestroy() {
+        this.checkCurrentTimeIntervalSubscription.unsubscribe();
     }
 };
-ResizeDirective.ctorParameters = () => [
-    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ElementRef"] }
+TimeSegmentComponent.ctorParameters = () => [
+    { type: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ChangeDetectorRef"] }
 ];
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewChildren"])('timeSegment')
+], TimeSegmentComponent.prototype, "timeSegment", void 0);
+tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
     Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-], ResizeDirective.prototype, "resize", void 0);
+], TimeSegmentComponent.prototype, "segments", void 0);
 tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.width.px')
-], ResizeDirective.prototype, "width", void 0);
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostBinding"])('style.left.px')
-], ResizeDirective.prototype, "left", void 0);
-tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["HostListener"])('window:resize')
-], ResizeDirective.prototype, "onResize", null);
-ResizeDirective = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
-    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Directive"])({
-        selector: '[resize]',
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
+], TimeSegmentComponent.prototype, "users", void 0);
+TimeSegmentComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
+    Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
+        selector: 'app-time-segment',
+        template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./time-segment.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/calendar/time-segment/time-segment.component.html")).default,
+        styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./time-segment.component.scss */ "./src/app/calendar/time-segment/time-segment.component.scss")).default]
     })
-], ResizeDirective);
+], TimeSegmentComponent);
 
 
 
